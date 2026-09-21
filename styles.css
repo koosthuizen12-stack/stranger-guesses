@@ -1,0 +1,806 @@
+/* ==========================================
+   STRANGER NUMBERS
+   1980s ARCADE / UPSIDE DOWN STYLE
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at center, #240000 0%, #090000 45%, #000000 100%);
+
+    color: #eeeeee;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    overflow-x: hidden;
+}
+
+
+/* ==========================================
+   CRT EFFECT
+========================================== */
+
+body::before {
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            transparent 0px,
+            transparent 3px,
+            rgba(255, 255, 255, 0.025) 4px
+        );
+
+    z-index: 100;
+}
+
+.scanlines {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    box-shadow:
+        inset 0 0 120px rgba(0, 0, 0, 0.9);
+
+    z-index: 101;
+}
+
+
+/* ==========================================
+   GENERAL SCREEN
+========================================== */
+
+.screen {
+    width: 100%;
+    min-height: 100vh;
+
+    padding: 40px 20px;
+
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ==========================================
+   LOGO
+========================================== */
+
+.logo {
+    margin-top: 20px;
+
+    text-shadow:
+        4px 4px 0 #350000,
+        0 0 20px #ff0000;
+}
+
+.logo-small {
+    color: #eeeeee;
+
+    font-size: 20px;
+
+    letter-spacing: 12px;
+}
+
+.logo-main {
+    color: #c80000;
+
+    font-size: clamp(45px, 10vw, 100px);
+
+    font-weight: bold;
+
+    letter-spacing: 5px;
+
+    line-height: 0.9;
+
+    text-transform: uppercase;
+
+    -webkit-text-stroke: 1px #ff3333;
+}
+
+.subtitle {
+    margin-top: 25px;
+
+    color: #999;
+
+    font-size: 13px;
+
+    letter-spacing: 4px;
+}
+
+
+/* ==========================================
+   CHARACTERS
+========================================== */
+
+.characters {
+    display: flex;
+
+    justify-content: center;
+
+    align-items: flex-end;
+
+    gap: 35px;
+
+    margin: 45px auto;
+
+    max-width: 850px;
+}
+
+.character {
+    position: relative;
+
+    width: 100px;
+
+    height: 130px;
+
+    image-rendering: pixelated;
+}
+
+.character span {
+    position: absolute;
+
+    bottom: -25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 130px;
+
+    color: #777;
+
+    font-size: 9px;
+
+    letter-spacing: 1px;
+}
+
+
+/* Pixel head */
+
+.character .head {
+    position: absolute;
+
+    width: 38px;
+    height: 42px;
+
+    left: 31px;
+    top: 5px;
+
+    background: #777;
+
+    box-shadow:
+        -6px 7px 0 #777,
+        6px 7px 0 #777;
+}
+
+
+/* Pixel body */
+
+.character .body {
+    position: absolute;
+
+    width: 55px;
+    height: 70px;
+
+    left: 22px;
+    top: 50px;
+
+    background: #333;
+
+    box-shadow:
+        -10px 10px 0 #222,
+        10px 10px 0 #222;
+}
+
+
+/* Demogorgon */
+
+.character-demogorgon .head {
+    background: #8d0000;
+
+    width: 55px;
+    height: 55px;
+
+    left: 22px;
+
+    clip-path: polygon(
+        50% 0%,
+        70% 20%,
+        100% 35%,
+        75% 50%,
+        100% 70%,
+        65% 70%,
+        50% 100%,
+        35% 70%,
+        0% 70%,
+        25% 50%,
+        0% 35%,
+        30% 20%
+    );
+}
+
+.character-demogorgon .body {
+    background: #450000;
+}
+
+
+/* Eleven */
+
+.character-eleven .head {
+    background: #d18d6f;
+}
+
+.character-eleven .body {
+    background: #d72a38;
+}
+
+.character-eleven .body::after {
+    content: "";
+
+    position: absolute;
+
+    width: 15px;
+    height: 25px;
+
+    background: #eeeeee;
+
+    left: 20px;
+    top: 20px;
+}
+
+
+/* Will */
+
+.character-will .head {
+    background: #b47a56;
+}
+
+.character-will .body {
+    background: #24405c;
+}
+
+
+/* Mike */
+
+.character-mike .head {
+    background: #b47a56;
+}
+
+.character-mike .body {
+    background: #6b4328;
+}
+
+
+/* ==========================================
+   SETTINGS
+========================================== */
+
+.settings-box {
+    width: min(420px, 95%);
+
+    margin: 70px auto 0;
+
+    padding: 30px;
+
+    border: 2px solid #720000;
+
+    background: rgba(0, 0, 0, 0.75);
+
+    box-shadow:
+        0 0 20px rgba(150, 0, 0, 0.35),
+        inset 0 0 30px rgba(100, 0, 0, 0.1);
+}
+
+.settings-box h2 {
+    color: #c80000;
+
+    letter-spacing: 3px;
+
+    margin-top: 0;
+}
+
+.settings-box label {
+    display: block;
+
+    margin-top: 20px;
+
+    margin-bottom: 8px;
+
+    color: #aaa;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+.settings-box input {
+    width: 100%;
+
+    padding: 12px;
+
+    background: #080808;
+
+    border: 1px solid #500000;
+
+    color: white;
+
+    text-align: center;
+
+    font-family: inherit;
+
+    font-size: 18px;
+
+    outline: none;
+}
+
+.settings-box input:focus {
+    border-color: #d00000;
+
+    box-shadow: 0 0 10px #600000;
+}
+
+
+/* ==========================================
+   BUTTONS
+========================================== */
+
+.arcade-button {
+    margin-top: 25px;
+
+    padding: 14px 24px;
+
+    border: 2px solid #b00000;
+
+    background: #180000;
+
+    color: #eeeeee;
+
+    font-family: inherit;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+
+    box-shadow:
+        0 0 8px rgba(180, 0, 0, 0.3);
+}
+
+.arcade-button:hover {
+    background: #9d0000;
+
+    color: white;
+
+    box-shadow:
+        0 0 20px red;
+
+    transform: translateY(-2px);
+}
+
+.arcade-button:active {
+    transform: translateY(2px);
+}
+
+.arcade-button.danger {
+    border-color: #ff0000;
+
+    color: #ff4444;
+}
+
+
+/* ==========================================
+   GAME HEADER
+========================================== */
+
+#gameScreen {
+    max-width: 1000px;
+
+    margin: auto;
+}
+
+header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    border-bottom: 1px solid #450000;
+
+    padding-bottom: 20px;
+}
+
+.game-logo {
+    color: #d00000;
+
+    font-size: 22px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    text-shadow: 0 0 10px red;
+}
+
+.range-display {
+    color: #777;
+
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+
+/* ==========================================
+   LIVES
+========================================== */
+
+.lives-container {
+    margin-top: 30px;
+}
+
+.lives-title {
+    color: #777;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 10px;
+}
+
+#hearts {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 35px;
+}
+
+.heart {
+    color: #e00000;
+
+    font-size: 28px;
+
+    text-shadow:
+        0 0 8px red;
+
+    transition:
+        opacity 0.3s,
+        transform 0.3s;
+}
+
+.heart.lost {
+    opacity: 0;
+
+    transform: scale(0);
+}
+
+
+/* ==========================================
+   MAIN GAME
+========================================== */
+
+main {
+    margin-top: 80px;
+}
+
+.guess-title {
+    color: #eee;
+
+    font-size: clamp(30px, 6vw, 60px);
+
+    letter-spacing: 5px;
+
+    text-shadow:
+        0 0 15px #700000;
+}
+
+.instruction {
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+.guess-area {
+    margin-top: 40px;
+}
+
+#guessInput {
+    width: 200px;
+
+    padding: 18px;
+
+    background: #050505;
+
+    border: 2px solid #700000;
+
+    color: white;
+
+    outline: none;
+
+    text-align: center;
+
+    font-family: inherit;
+
+    font-size: 30px;
+
+    box-shadow:
+        inset 0 0 15px rgba(100, 0, 0, 0.2);
+}
+
+#guessInput:focus {
+    border-color: #d00000;
+
+    box-shadow:
+        0 0 15px rgba(200, 0, 0, 0.3);
+}
+
+
+/* ==========================================
+   MESSAGE
+========================================== */
+
+#message {
+    min-height: 35px;
+
+    margin-top: 30px;
+
+    color: #aaa;
+
+    font-size: 14px;
+
+    letter-spacing: 2px;
+}
+
+
+/* ==========================================
+   PREVIOUS GUESSES
+========================================== */
+
+.previous-section {
+    margin: 70px auto;
+
+    width: min(600px, 95%);
+}
+
+.previous-section h2 {
+    color: #777;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    border-bottom: 1px solid #300000;
+
+    padding-bottom: 12px;
+}
+
+#guessesList {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    margin-top: 20px;
+}
+
+.guess-entry {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 12px 20px;
+
+    border-left: 5px solid;
+
+    background: rgba(255, 255, 255, 0.03);
+
+    font-size: 15px;
+}
+
+.guess-entry.lower {
+    border-color: #d00000;
+
+    color: #ff5555;
+}
+
+.guess-entry.higher {
+    border-color: #00a83b;
+
+    color: #45e878;
+}
+
+.guess-entry.correct {
+    border-color: #ffffff;
+
+    color: white;
+
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.guess-number {
+    font-weight: bold;
+}
+
+.guess-indicator {
+    font-size: 12px;
+
+    letter-spacing: 2px;
+}
+
+
+/* ==========================================
+   POPUPS
+========================================== */
+
+.overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 200;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.88);
+
+    backdrop-filter: blur(4px);
+}
+
+.game-over-popup,
+.answer-popup {
+    width: min(500px, 90%);
+
+    padding: 45px 30px;
+
+    text-align: center;
+
+    background:
+        radial-gradient(circle, #280000, #050000 70%);
+
+    border: 2px solid #9d0000;
+
+    box-shadow:
+        0 0 40px rgba(200, 0, 0, 0.5);
+}
+
+.skull {
+    font-size: 90px;
+
+    color: #ddd;
+
+    text-shadow:
+        0 0 20px red;
+
+    animation: skullPulse 1.2s infinite alternate;
+}
+
+@keyframes skullPulse {
+
+    from {
+        transform: scale(1);
+        opacity: 0.75;
+    }
+
+    to {
+        transform: scale(1.08);
+        opacity: 1;
+    }
+}
+
+.game-over-popup h1,
+.answer-popup h1 {
+    color: #d00000;
+
+    font-size: 40px;
+
+    letter-spacing: 5px;
+
+    margin: 10px 0;
+}
+
+.game-over-popup p,
+.answer-popup p {
+    color: #777;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+}
+
+.game-over-options {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.game-over-options .arcade-button {
+    width: 100%;
+}
+
+#answerNumber {
+    margin: 30px;
+
+    color: #ff2222;
+
+    font-size: 70px;
+
+    font-weight: bold;
+
+    text-shadow:
+        0 0 20px red;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 650px) {
+
+    .characters {
+        gap: 8px;
+
+        transform: scale(0.8);
+    }
+
+    header {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .guess-area {
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 5px;
+    }
+
+    #guessInput {
+        width: 180px;
+    }
+
+    .logo-main {
+        font-size: 48px;
+    }
+}
