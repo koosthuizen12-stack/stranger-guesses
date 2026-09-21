@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>STRANGER NUMBERS</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- CRT scanline effect -->
+    <div class="scanlines"></div>
+
+    <!-- =========================
+         START / SETTINGS SCREEN
+    ========================== -->
+
+    <div id="startScreen" class="screen">
+
+        <div class="logo">
+            <div class="logo-small">THE</div>
+            <div class="logo-main">STRANGER</div>
+            <div class="logo-main">NUMBERS</div>
+        </div>
+
+        <p class="subtitle">
+            A STRANGE GAME FROM THE UPSIDE DOWN
+        </p>
+
+        <!-- Pixel characters -->
+        <div class="characters">
+
+            <div class="character character-demogorgon">
+                <div class="head"></div>
+                <div class="body"></div>
+                <span>DEMOGORGON</span>
+            </div>
+
+            <div class="character character-eleven">
+                <div class="head"></div>
+                <div class="body"></div>
+                <span>ELEVEN</span>
+            </div>
+
+            <div class="character character-will">
+                <div class="head"></div>
+                <div class="body"></div>
+                <span>WILL</span>
+            </div>
+
+            <div class="character character-mike">
+                <div class="head"></div>
+                <div class="body"></div>
+                <span>MIKE</span>
+            </div>
+
+        </div>
+
+        <div class="settings-box">
+
+            <h2>GAME SETTINGS</h2>
+
+            <label for="startingLives">
+                NUMBER OF LIVES
+            </label>
+
+            <input
+                type="number"
+                id="startingLives"
+                min="1"
+                max="20"
+                value="5"
+            >
+
+            <label for="minimumNumber">
+                LOWEST NUMBER
+            </label>
+
+            <input
+                type="number"
+                id="minimumNumber"
+                value="1"
+            >
+
+            <label for="maximumNumber">
+                HIGHEST NUMBER
+            </label>
+
+            <input
+                type="number"
+                id="maximumNumber"
+                value="100"
+            >
+
+            <button id="startButton" class="arcade-button">
+                ENTER THE UPSIDE DOWN
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         GAME SCREEN
+    ========================== -->
+
+    <div id="gameScreen" class="screen hidden">
+
+        <header>
+
+            <div class="game-logo">
+                STRANGER NUMBERS
+            </div>
+
+            <div class="range-display">
+                RANGE:
+                <span id="rangeDisplay"></span>
+            </div>
+
+        </header>
+
+
+        <!-- HEARTS -->
+
+        <div class="lives-container">
+
+            <div class="lives-title">
+                LIVES
+            </div>
+
+            <div id="hearts"></div>
+
+        </div>
+
+
+        <!-- GAME CONTENT -->
+
+        <main>
+
+            <h1 class="guess-title">
+                GUESS THE NUMBER
+            </h1>
+
+            <p class="instruction">
+                ENTER A NUMBER AND DISCOVER IF YOU'RE GETTING CLOSER...
+            </p>
+
+            <div class="guess-area">
+
+                <input
+                    type="number"
+                    id="guessInput"
+                    placeholder="?"
+                    autocomplete="off"
+                >
+
+                <button id="guessButton" class="arcade-button">
+                    GUESS
+                </button>
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div id="message"></div>
+
+
+            <!-- PREVIOUS GUESSES -->
+
+            <section class="previous-section">
+
+                <h2>
+                    PREVIOUS GUESSES
+                </h2>
+
+                <div id="guessesList"></div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================
+         GAME OVER POPUP
+    ========================== -->
+
+    <div id="gameOverOverlay" class="overlay hidden">
+
+        <div class="game-over-popup">
+
+            <div class="skull">
+                ☠
+            </div>
+
+            <h1>GAME OVER</h1>
+
+            <p>
+                THE UPSIDE DOWN HAS CLAIMED YOU.
+            </p>
+
+            <div class="game-over-options">
+
+                <button id="playAgainButton" class="arcade-button">
+                    PLAY AGAIN
+                </button>
+
+                <button id="addLifeButton" class="arcade-button">
+                    +1 LIFE
+                </button>
+
+                <button id="endGameButton" class="arcade-button danger">
+                    END GAME
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ANSWER POPUP
+    ========================== -->
+
+    <div id="answerOverlay" class="overlay hidden">
+
+        <div class="answer-popup">
+
+            <div class="demogorgon-small">
+                ☠
+            </div>
+
+            <h1>THE ANSWER</h1>
+
+            <p>
+                THE NUMBER FROM THE UPSIDE DOWN WAS:
+            </p>
+
+            <div id="answerNumber"></div>
+
+            <button id="returnButton" class="arcade-button">
+                RETURN TO MENU
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
